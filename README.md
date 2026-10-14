@@ -1,3 +1,4 @@
+
 # Federated Learning for IVF Live-Birth Prediction
 
 [![Python 3.10+](https://img.shields.io/badge/Python-3.10%2B-blue.svg)](https://www.python.org/)
@@ -297,6 +298,3 @@ Using the **Fairlearn** framework, the global federated model was audited across
 
 ---
 
-## 13. License
-
-Distributed under the MIT License. See `LICENSE` for details.
