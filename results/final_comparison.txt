@@ -1,0 +1,31 @@
+
+========================================================
+             FINAL MODEL COMPARISON
+========================================================
+Model              AUC       F1        Brier Score
+--------------------------------------------------------
+Centralized        0.657     0.688     0.237
+Federated          0.660     0.717     0.228
+Local-only         0.589     0.629     0.321
+========================================================
+
+Dataset:            Real IVF Treatment Dataset (Freeze-all IVF)
+Number of samples:  1578 (1104 train, 158 val, 316 test)
+Number of features: 35
+Number of clinics:  10
+Federated rounds:   30
+Best federated AUC: 0.629
+Non-IID Age-Skew AUC:       0.662
+Non-IID Diagnosis-Skew AUC: 0.674
+
+Artifact Locations:
+  - Dataset Summary:     results/dataset_summary.txt
+  - Centralized Results: results/centralized_results.json
+  - Local Results:       results/local_results.json
+  - FL Metrics History:  results/fl_metrics.json
+  - Fairness Report:     results/fairness_report.txt
+  - Saved Figures:       results/figures/
+  - Trained FL Weights:  results/federated_model.pt
+  - Web Demonstration:   python app.py
+Total Pipeline Runtime: 74.98 seconds
+========================================================

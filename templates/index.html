@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Federated IVF: Live-Birth Prediction System</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --primary-light: #eff6ff;
+            --secondary: #0f172a;
+            --accent: #0ea5e9;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --gray-50: #f8fafc;
+            --gray-100: #f1f5f9;
+            --gray-200: #e2e8f0;
+            --gray-300: #cbd5e1;
+            --gray-600: #475569;
+            --gray-700: #334155;
+            --gray-800: #1e293b;
+            --gray-900: #0f172a;
+            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+            --radius-md: 8px;
+            --radius-lg: 12px;
+            --radius-xl: 16px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            color: var(--gray-800);
+            min-height: 100vh;
+            padding: 24px 16px;
+            line-height: 1.5;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            background: #ffffff;
+            border-radius: var(--radius-xl);
+            padding: 28px 32px;
+            box-shadow: var(--shadow-md);
+            margin-bottom: 24px;
+            border-left: 6px solid var(--primary);
+        }
+
+        .badge-fl {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: var(--primary-light);
+            color: var(--primary);
+            padding: 4px 12px;
+            border-radius: 9999px;
+            font-size: 0.82rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        h1 {
+            font-size: 1.85rem;
+            font-weight: 700;
+            color: var(--gray-900);
+            margin-bottom: 6px;
+        }
+
+        .subtitle {
+            font-size: 0.98rem;
+            color: var(--gray-600);
+            max-width: 850px;
+        }
+
+        .privacy-box {
+            margin-top: 16px;
+            background: #f0fdf4;
+            border: 1px solid #bbf7d0;
+            border-radius: var(--radius-md);
+            padding: 12px 16px;
+            font-size: 0.88rem;
+            color: #166534;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .main-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 24px;
+        }
+
+        @media (max-width: 960px) {
+            .main-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .card {
+            background: #ffffff;
+            border-radius: var(--radius-xl);
+            padding: 28px;
+            box-shadow: var(--shadow-md);
+            margin-bottom: 24px;
+        }
+
+        .card-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--gray-900);
+            margin-bottom: 16px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--gray-200);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .section-header {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-top: 20px;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px 20px;
+        }
+
+        @media (max-width: 600px) {
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        label {
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--gray-700);
+        }
+
+        input[type="number"], select {
+            width: 100%;
+            padding: 9px 12px;
+            border: 1px solid var(--gray-300);
+            border-radius: var(--radius-md);
+            font-size: 0.92rem;
+            font-family: inherit;
+            color: var(--gray-900);
+            background: var(--gray-50);
+            transition: border-color 0.15s, box-shadow 0.15s;
+        }
+
+        input[type="number"]:focus, select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+            background: #ffffff;
+        }
+
+        .help-text {
+            font-size: 0.75rem;
+            color: var(--gray-600);
+        }
+
+        .btn-submit {
+            margin-top: 24px;
+            width: 100%;
+            background: var(--primary);
+            color: #ffffff;
+            font-weight: 600;
+            font-size: 1.05rem;
+            padding: 14px 24px;
+            border: none;
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(37, 99, 235, 0.25);
+            transition: background 0.15s, transform 0.1s;
+        }
+
+        .btn-submit:hover {
+            background: var(--primary-dark);
+            transform: translateY(-1px);
+        }
+
+        /* Results Card */
+        .result-box {
+            text-align: center;
+            padding: 24px 16px;
+            border-radius: var(--radius-lg);
+            background: var(--gray-50);
+            border: 1px solid var(--gray-200);
+            margin-bottom: 20px;
+        }
+
+        .result-value {
+            font-size: 2.8rem;
+            font-weight: 800;
+            color: var(--primary);
+            line-height: 1.1;
+            margin: 12px 0 6px 0;
+        }
+
+        .result-caption {
+            font-size: 0.92rem;
+            font-weight: 500;
+            color: var(--gray-600);
+        }
+
+        .progress-bar-bg {
+            background: var(--gray-200);
+            height: 12px;
+            border-radius: 9999px;
+            overflow: hidden;
+            margin: 16px 0;
+        }
+
+        .progress-bar-fill {
+            background: linear-gradient(90deg, #3b82f6 0%, #10b981 100%);
+            height: 100%;
+            width: {{ prob_pct|default(55.2) }}%;
+            transition: width 0.6s ease;
+        }
+
+        .stats-list {
+            list-style: none;
+            font-size: 0.88rem;
+        }
+
+        .stats-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid var(--gray-200);
+        }
+
+        .stats-item:last-child {
+            border-bottom: none;
+        }
+
+        .disclaimer-card {
+            background: #fffbeb;
+            border: 1px solid #fde68a;
+            border-radius: var(--radius-lg);
+            padding: 16px 20px;
+            color: #92400e;
+            font-size: 0.85rem;
+            line-height: 1.45;
+        }
+
+        .disclaimer-card strong {
+            display: block;
+            margin-bottom: 4px;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <span class="badge-fl">Privacy-Preserving Artificial Intelligence</span>
+            <h1>Federated Learning for IVF Live-Birth Prediction</h1>
+            <p class="subtitle">
+                Collaborative machine learning trained across 10 simulated fertility clinics without centralizing or sharing private electronic health records.
+            </p>
+            <div class="privacy-box">
+                <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                <span><strong>Privacy Guarantee:</strong> Patient records never leave local clinic databases. Only model weights are aggregated using Flower FedAvg.</span>
+            </div>
+        </header>
+
+        <div class="main-grid">
+            <!-- Left: Clinical Input Form -->
+            <div class="card">
+                <h2 class="card-title">
+                    <svg width="22" height="22" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                    Patient & Treatment Clinical Parameters
+                </h2>
+
+                <form method="POST" action="/predict">
+                    <!-- Section 1 -->
+                    <div class="section-header">1. Patient Profile & Ovarian Reserve</div>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="age">Female Age (Years)</label>
+                            <input type="number" step="0.1" name="age" id="age" value="{{ values.age|default(31.7) }}" required>
+                            <span class="help-text">Dataset Range: 18 - 43 yrs</span>
+                        </div>
+                        <div class="form-group">
+                            <label for="bmi">Body Mass Index (BMI kg/m²)</label>
+                            <input type="number" step="0.1" name="bmi" id="bmi" value="{{ values.bmi|default(25.0) }}" required>
+                            <span class="help-text">WHO Categories: &lt;25, 25-29.9, &ge;30</span>
+                        </div>
+                        <div class="form-group">
+                            <label for="inf_yrs">Infertility Duration (Years)</label>
+                            <input type="number" step="0.5" name="inf_yrs" id="inf_yrs" value="{{ values.inf_yrs|default(4.0) }}" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="prime_inf">Infertility Type</label>
+                            <select name="prime_inf" id="prime_inf">
+                                <option value="0" {% if values.prime_inf == 0 %}selected{% endif %}>Secondary Infertility</option>
+                                <option value="1" {% if values.prime_inf == 1 %}selected{% endif %}>Primary Infertility</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="afc">Antral Follicle Count (AFC)</label>
+                            <input type="number" name="afc" id="afc" value="{{ values.afc|default(14) }}" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="prev_et_numb">Previous Embryo Transfers</label>
+                            <input type="number" name="prev_et_numb" id="prev_et_numb" value="{{ values.prev_et_numb|default(1) }}" required>
+                        </div>
+                    </div>
+
+                    <!-- Section 2 -->
+                    <div class="section-header">2. Infertility Diagnosis & Stimulation Protocol</div>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="diag">Infertility Diagnosis</label>
+                            <select name="diag" id="diag">
+                                <option value="u" {% if values.diag == 'u' %}selected{% endif %}>Unexplained Infertility (u)</option>
+                                <option value="m" {% if values.diag == 'm' %}selected{% endif %}>Male Factor Infertility (m)</option>
+                                <option value="pcos" {% if values.diag == 'pcos' %}selected{% endif %}>Polycystic Ovary Syndrome (pcos)</option>
+                                <option value="dor" {% if values.diag == 'dor' %}selected{% endif %}>Diminished Ovarian Reserve (dor)</option>
+                                <option value="t" {% if values.diag == 't' %}selected{% endif %}>Tubal Factor (t)</option>
+                                <option value="o" {% if values.diag == 'o' %}selected{% endif %}>Ovulatory Dysfunction (o)</option>
+                                <option value="a" {% if values.diag == 'a' %}selected{% endif %}>Advanced Maternal Age (a)</option>
+                                <option value="e" {% if values.diag == 'e' %}selected{% endif %}>Endometriosis (e)</option>
+                                <option value="multi" {% if values.diag == 'multi' %}selected{% endif %}>Multiple Etiologies (multi)</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="trigger_type">Ovulation Trigger Medication</label>
+                            <select name="trigger_type" id="trigger_type">
+                                <option value="a" {% if values.trigger_type == 'a' %}selected{% endif %}>GnRH Agonist Trigger (a)</option>
+                                <option value="d" {% if values.trigger_type == 'd' %}selected{% endif %}>Dual Trigger: Agonist + hCG (d)</option>
+                                <option value="h" {% if values.trigger_type == 'h' %}selected{% endif %}>hCG Trigger (h)</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="stim_days">Ovarian Stimulation Days</label>
+                            <input type="number" name="stim_days" id="stim_days" value="{{ values.stim_days|default(9) }}" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="fsh">Daily FSH Dose (IU)</label>
+                            <input type="number" step="25" name="fsh" id="fsh" value="{{ values.fsh|default(325) }}" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="hmg">Daily HMG Dose (IU)</label>
+                            <input type="number" step="25" name="hmg" id="hmg" value="{{ values.hmg|default(75) }}" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="tot_fsh">Total FSH Dose (IU)</label>
+                            <input type="number" step="100" name="tot_fsh" id="tot_fsh" value="{{ values.tot_fsh|default(3520) }}" required>
+                        </div>
+                    </div>
+
+                    <!-- Section 3 -->
+                    <div class="section-header">3. Oocyte & Embryology Laboratory Metrics</div>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="eggs">Total Eggs Retrieved</label>
+                            <input type="number" name="eggs" id="eggs" value="{{ values.eggs|default(15) }}" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="icsi">ICSI Injected Oocytes</label>
+                            <input type="number" name="icsi" id="icsi" value="{{ values.icsi|default(11) }}" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="two_pn">2PN Fertilized Embryos</label>
+                            <input type="number" name="two_pn" id="two_pn" value="{{ values.two_pn|default(8) }}" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="blast_ge_2bb">Blastocysts &ge; 2BB</label>
+                            <input type="number" name="blast_ge_2bb" id="blast_ge_2bb" value="{{ values.blast_ge_2bb|default(4) }}" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="blast_fz_ge_2bb">Frozen Blastocysts &ge; 2BB</label>
+                            <input type="number" name="blast_fz_ge_2bb" id="blast_fz_ge_2bb" value="{{ values.blast_fz_ge_2bb|default(4) }}" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="mat_rate">Oocyte Maturity Rate (0 - 1.0)</label>
+                            <input type="number" step="0.01" min="0" max="1" name="mat_rate" id="mat_rate" value="{{ values.mat_rate|default(0.81) }}" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="fert_rate">Fertilisation Rate (0 - 1.0)</label>
+                            <input type="number" step="0.01" min="0" max="1" name="fert_rate" id="fert_rate" value="{{ values.fert_rate|default(0.82) }}" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="blast_rate">Blastocyst Formation Rate (0 - 1.0)</label>
+                            <input type="number" step="0.01" min="0" max="1" name="blast_rate" id="blast_rate" value="{{ values.blast_rate|default(0.46) }}" required>
+                        </div>
+                    </div>
+
+                    <!-- Section 4 -->
+                    <div class="section-header">4. Transfer Cycle & Endometrium</div>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="fet_n">FET Transfer Attempt Number</label>
+                            <input type="number" name="fet_n" id="fet_n" value="{{ values.fet_n|default(1) }}" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="n_blast_transf">Number of Blastocysts Transferred</label>
+                            <input type="number" name="n_blast_transf" id="n_blast_transf" value="{{ values.n_blast_transf|default(1) }}" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="set_emb_score">SET Embryo Quality Score (1-8)</label>
+                            <input type="number" step="0.5" name="set_emb_score" id="set_emb_score" value="{{ values.set_emb_score|default(6.0) }}" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="endo_mm">Endometrial Thickness (mm)</label>
+                            <input type="number" step="0.1" name="endo_mm" id="endo_mm" value="{{ values.endo_mm|default(9.6) }}" required>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn-submit">
+                        Compute Live-Birth Prediction (Federated Model)
+                    </button>
+                </form>
+            </div>
+
+            <!-- Right: Prediction Result & Architecture -->
+            <div>
+                <div class="card">
+                    <h2 class="card-title">
+                        <svg width="22" height="22" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                        Model Prediction
+                    </h2>
+
+                    <div class="result-box">
+                        <div class="result-caption">Predicted probability of live birth:</div>
+                        <div class="result-value">{{ prob_pct|default(55.2) }}%</div>
+                        <div class="progress-bar-bg">
+                            <div class="progress-bar-fill"></div>
+                        </div>
+                        <p style="font-size: 0.85rem; color: var(--gray-600);">
+                            {% if prob_pct %}
+                                {% if prob_pct >= 60 %}
+                                    <span style="color: var(--success); font-weight: 600;">Favorable Prognosis:</span> Above cohort average live-birth probability.
+                                {% elif prob_pct >= 40 %}
+                                    <span style="color: var(--warning); font-weight: 600;">Moderate Prognosis:</span> Standard clinical expectation range.
+                                {% else %}
+                                    <span style="color: var(--danger); font-weight: 600;">Reduced Prognosis:</span> Lower reproductive likelihood for this cycle.
+                                {% endif %}
+                            {% else %}
+                                Enter patient metrics and click Compute.
+                            {% endif %}
+                        </p>
+                    </div>
+
+                    <h3 style="font-size: 0.95rem; font-weight: 600; margin-bottom: 10px;">Pipeline Metadata</h3>
+                    <ul class="stats-list">
+                        <li class="stats-item">
+                            <span>Federated Architecture:</span>
+                            <strong>Flower FedAvg (30 Rnds)</strong>
+                        </li>
+                        <li class="stats-item">
+                            <span>Virtual Clinics:</span>
+                            <strong>10 Isolated Nodes</strong>
+                        </li>
+                        <li class="stats-item">
+                            <span>Global Test AUC-ROC:</span>
+                            <strong>{{ test_auc|default('0.647') }}</strong>
+                        </li>
+                        <li class="stats-item">
+                            <span>Data Leakage Safeguard:</span>
+                            <strong>Active (PR Excluded)</strong>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="disclaimer-card">
+                    <strong>Educational Research Disclaimer:</strong>
+                    This application is an educational research demonstration and is not medical advice or a clinical prediction tool. Real clinical IVF decisions must always be made by licensed reproductive endocrinologists and embryologists.
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

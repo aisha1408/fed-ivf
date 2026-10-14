@@ -1,0 +1,62 @@
+================================================================================
+FEDERATED IVF: ALGORITHMIC FAIRNESS & DEMOGRAPHIC PARITY REPORT
+================================================================================
+Framework: Fairlearn 0.14+ MetricFrame & Disparity Metrics
+Evaluated Model: Federated Learning Global Model (FedAvg)
+Decision Threshold: 0.5
+Test Cohort Size: 316 patients
+
+--------------------------------------------------------------------------------
+1. FAIRNESS AUDIT ACROSS FEMALE AGE COHORTS
+--------------------------------------------------------------------------------
+Age Cohort                 | Patients | Selection Rate  | TPR (Recall) | FPR     
+--------------------------------------------------------------------------------
+18-34 (Young)              | 217      |        0.7834  |     0.8722  | 0.6429
+35-37 (Intermediate)       | 45       |        0.6000  |     0.7143  | 0.5000
+38-39 (Advanced 1)         | 32       |        0.2188  |     0.2857  | 0.1667
+40+ (Advanced 2)           | 22       |        0.1818  |     0.3333  | 0.1250
+
+Demographic Parity Difference (Age): 0.6016
+Equalized Odds Difference (Age):     0.5865
+Interpretation: Age-dependent selection rate divergence reflects biological fecundity
+disparities inherent in clinical reproductive medicine rather than pure algorithmic bias.
+
+--------------------------------------------------------------------------------
+2. FAIRNESS AUDIT ACROSS BODY MASS INDEX (BMI) GROUPS
+--------------------------------------------------------------------------------
+BMI Classification         | Patients | Selection Rate  | TPR (Recall) | FPR     
+--------------------------------------------------------------------------------
+Normal (<25)               | 123      |        0.7642  |     0.8750  | 0.6078
+Obese (>=30)               | 66       |        0.5455  |     0.7586  | 0.3784
+Overweight (25-29.9)       | 127      |        0.6142  |     0.7123  | 0.4815
+
+Demographic Parity Difference (BMI): 0.2188
+Equalized Odds Difference (BMI):     0.2295
+
+--------------------------------------------------------------------------------
+3. FAIRNESS AUDIT ACROSS INFERTILITY DIAGNOSIS ETIOLOGIES
+--------------------------------------------------------------------------------
+Diagnosis Category                  | Patients | Selection Rate  | TPR (Recall)
+--------------------------------------------------------------------------------
+Advanced Maternal Age               | 11       |        0.7273  |     0.8571
+Diminished Ovarian Reserve (DOR)    | 27       |        0.2963  |     0.4615
+Endometriosis                       | 3        |        0.6667  |     0.5000
+Male Factor Infertility             | 107      |        0.7757  |     0.8889
+Other/Unexplained                   | 2        |        0.0000  |     0.0000
+Ovulatory Dysfunction               | 27       |        0.5926  |     0.6667
+Polycystic Ovary Syndrome (PCOS)    | 29       |        0.7586  |     0.8333
+Tubal Factor                        | 28       |        0.5714  |     0.7857
+Unexplained Infertility             | 82       |        0.6463  |     0.7619
+
+Demographic Parity Difference (Diagnosis): 0.7757
+Equalized Odds Difference (Diagnosis):     1.0000
+
+================================================================================
+MANDATORY CLINICAL & REGULATORY RESEARCH DISCLAIMER
+================================================================================
+This fairness evaluation is conducted strictly for educational, academic,
+and computer science research demonstration purposes.
+It does NOT constitute medical advice, clinical guidance, or a certified
+health technology assessment under FDA / CE / MDR regulatory guidelines.
+Clinical deployment requires dedicated validation on prospective multi-center cohorts.
+================================================================================

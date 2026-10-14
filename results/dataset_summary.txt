@@ -1,0 +1,75 @@
+================================================================================
+FEDERATED IVF: REAL CLINICAL DATASET INSPECTION & SUMMARY
+================================================================================
+Source file: data/ivf_data.xlsx
+Worksheets present: ['tot cycles LB outcome', 'No FET plus unknown']
+Selected worksheet for analysis: 'tot cycles LB outcome'
+Total raw records: 1578
+Total raw columns: 33
+
+--------------------------------------------------------------------------------
+1. TARGET VARIABLE: LIVE BIRTH OUTCOME
+--------------------------------------------------------------------------------
+Target column name: 'live_birth' -> mapped to 'live_birth'
+Live birth cases (Class 1): 871 (55.20%)
+Non-live birth cases (Class 0): 707 (44.80%)
+Class balance: Moderately balanced (~55% positive). Stratification applied.
+
+--------------------------------------------------------------------------------
+2. COLUMNS REMOVED (IDENTIFIERS & DATA LEAKAGE)
+--------------------------------------------------------------------------------
+Identifiers / Non-predictive metadata: ['row_index_or_date', 'cycle_start_date', 'patient_id', 'patient_birth_date', 'transfer_date', 'note', 'stim_type']
+Data leakage columns removed: ['pregnancy_rate_leak', 'pr', 'fh', 'fetal_heartbeat', 'number_of_live_births', 'delivery_date']
+Leakage Rationale: 'pregnancy_rate_leak' (PR) represents post-transfer hCG pregnancy test,
+which occurs after embryo transfer and leaks outcome state. All post-delivery metrics excluded.
+
+--------------------------------------------------------------------------------
+3. FEATURE COLUMN INVENTORY & MISSINGNESS
+--------------------------------------------------------------------------------
+Feature Name           | Data Type  | Missing %  | Unique   | Sample Values
+--------------------------------------------------------------------------------
+age                    | float64    |     0.00% |     1216 | [39.8986301369863, 23.421917808219177, 37.54246575342466, 31.723287671232878]
+inf_yrs                | float64    |     0.00% |       27 | [20.0, 3.0, 16.0, 5.0]
+prime_inf              | int64      |     0.00% |        2 | [0, 1]
+prev_et_numb           | int64      |     0.00% |       12 | [1, 0, 2, 3]
+afc                    | int64      |     0.00% |       69 | [26, 7, 6, 19]
+bmi                    | int64      |     0.00% |       31 | [42, 35, 31, 21]
+diag                   | object     |     0.57% |       10 | ['m', 'o', 'u', 'dor']
+trigger_type           | object     |     0.00% |        3 | ['d', 'a', 'h']
+stim_days              | int64      |     0.00% |       15 | [9, 12, 11, 8]
+fsh                    | float64    |     3.99% |       66 | [375.0, 300.0, 170.0, 250.0]
+hmg                    | float64    |    21.29% |       16 | [75.0, 0.0, 150.0, 375.0]
+tot_fsh                | int64      |     0.00% |      127 | [4050, 3600, 3520, 2400]
+eggs                   | int64      |     0.00% |       60 | [23, 8, 10, 17]
+icsi                   | int64      |     0.00% |       47 | [20, 8, 12, 15]
+two_pn                 | int64      |     0.00% |       38 | [14, 7, 9, 13]
+blast_ge_2bb           | int64      |     0.00% |       20 | [6, 5, 3, 7]
+blast_fz_ge_2bb        | int64      |     0.00% |       16 | [6, 5, 3, 7]
+mat_rate               | float64    |     0.00% |      219 | [0.8695652173913043, 1.0, 0.8, 0.7058823529411765]
+fert_rate              | float64    |     0.00% |      152 | [0.7, 0.875, 0.75, 0.8666666666666667]
+blast_rate             | float64    |     0.00% |      145 | [0.42857142857142855, 0.8571428571428571, 0.7142857142857143, 0.3333333333333333]
+fet_n                  | int64      |     0.00% |        4 | [1, 2, 3, 4]
+n_blast_transf         | int64      |     0.00% |        3 | [2, 1, 0]
+set_emb_score          | float64    |    41.89% |        7 | [7.0, 6.0, 5.0, 2.0]
+endo_mm                | float64    |     1.20% |       99 | [11.0, 10.2, 8.0, 10.0]
+
+--------------------------------------------------------------------------------
+4. CATEGORICAL FEATURES & UNIQUE VALUES
+--------------------------------------------------------------------------------
+Column 'diag':
+   - u (Unexplained Infertility): 463 patients
+   - m (Male Factor Infertility): 455 patients
+   - t (Tubal Factor): 169 patients
+   - pcos (Polycystic Ovary Syndrome (PCOS)): 142 patients
+   - o (Ovulatory Dysfunction): 132 patients
+   - dor (Diminished Ovarian Reserve (DOR)): 131 patients
+   - a (Advanced Maternal Age): 57 patients
+   - e (Endometriosis): 18 patients
+   - nan (Unknown): 9 patients
+   - multi (Multiple Etiologies): 1 patients
+   - U (Unknown): 1 patients
+Column 'trigger_type':
+   - a (Advanced Maternal Age): 780 patients
+   - d (Dual Trigger (Agonist + hCG)): 549 patients
+   - h (hCG Trigger): 249 patients
+================================================================================
